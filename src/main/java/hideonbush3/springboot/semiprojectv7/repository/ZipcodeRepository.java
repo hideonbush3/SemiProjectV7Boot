@@ -13,7 +13,7 @@ public interface ZipcodeRepository
     // 메서드 쿼리 : 메서드를 정해주면 나중에 자동으로 sql문으로 변환됨
     // 주로 select 쿼리에 최적화돼있음
     // 작성법 - find엔티티명by컬럼명
-    // select * from ZIPCODE - findZipcodebyzipcodeAll
+    // select * from ZIPCODE - findZipcodebyZipcodeAll
 
     @Query("from Zipcode where dong like %:dong%")
     List<Zipcode> findZipcodeByDong(@Param("dong") String dong);

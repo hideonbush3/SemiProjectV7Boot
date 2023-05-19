@@ -15,7 +15,7 @@ public class ZipcodeTest {
     ZipcodeRepository zipcodeRepository;
 
     @Test
-    @DisplayName("zipcode")
+    @DisplayName("동으로 주소 조회")
     public void findZipcodeByDong(){
         List<Zipcode> addr = zipcodeRepository.findZipcodeByDong("구로");
         System.out.println(addr);

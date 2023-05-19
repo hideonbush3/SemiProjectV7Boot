@@ -1,6 +1,7 @@
 package hideonbush3.springboot.semiprojectv7.dao;
 
 import hideonbush3.springboot.semiprojectv7.model.Board;
+import hideonbush3.springboot.semiprojectv7.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,9 +11,12 @@ import java.util.Map;
 @Repository("bddao")
 public class BoardDAOImpl implements BoardDAO {
 
+    @Autowired
+    BoardRepository boardRepository;
+
     @Override
     public List<Board> selectBoard(int stbno) {
-        return null;
+        return boardRepository.findAll();
     }
 
     @Override
@@ -31,12 +35,13 @@ public class BoardDAOImpl implements BoardDAO {
     }
 
     @Override
-    public Board selectOneBoard(String bno) {
-        return null;
+    public Board selectOneBoard(int bno) {
+        return boardRepository.findById((long)bno).get();
     }
 
     @Override
     public int insertBoard(Board bd) {
-        return 0;
+
+        return Math.toIntExact(boardRepository.save(bd).getBno());
     }
 }

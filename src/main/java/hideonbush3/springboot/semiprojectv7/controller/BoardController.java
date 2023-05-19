@@ -55,7 +55,7 @@ public class BoardController {
         return viewPage;
     }
     @GetMapping("/view")
-    public ModelAndView view(String bno) {
+    public ModelAndView view(int bno) {
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("bd", bdsrv.readOneBoard(bno));

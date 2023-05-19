@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
 public class MemberTest {
@@ -25,10 +27,9 @@ public class MemberTest {
     @Test
     @DisplayName("회원 추가")
     public void saveMember(){
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Member m = new Member(null, "김득열", "950508", "1234567", "hideonbush3", "hideonbush3"
+        Member m = new Member(null, "김연습", "950508", "1234567", "hideonbush3", "hideonbush3"
         , "123-456", "서울특별시 강남구 논현동", "타워팰리스 1701호", "ppoii0961@naver.com"
-        , "010-8238-1170", localDateTime);
+        , "010-8238-1170", null);
 
 
         memberRepository.save(m);
@@ -37,19 +38,36 @@ public class MemberTest {
     @Test
     @DisplayName("회원정보수정")
     public void updateMember(){
-        Member m = new Member(5L, "한소희", "950508", "2114454", "sohee95", "sohee95"
-                , "123-456", "서울특별시 강남구 논현동", "타워팰리스 1701호", "sohee95@naver.com"
-                , "010-8238-1170", null);
+        Member m = memberRepository.findMemberByMbno(5L);
+        m.setName("한조희");
+
+//        Member m = new Member(5L, "한소희", "950508", "2114454", "sohee95", "sohee95"
+//                , "123-456", "서울특별시 강남구 논현동", "타워팰리스 1701호", "sohee95@naver.com"
+//                , "010-8238-1170", null);
         memberRepository.save(m);
     }
 
     @Test
     @DisplayName("회원정보삭제")
-        public void deleteMember(){
+    public void deleteMember(){
         Member m = new Member();
         m.setMbno(2L);
 
         memberRepository.delete(m);
-        }
+    }
+
+    @Test
+    @DisplayName("로그인 시도")
+    public void loginMember(){
+        Member m = new Member();
+        m.setUserid("ehgus94");
+        m.setPasswd("ehgus94");
+
+        // 실행결과 반환값(Member 객체)가 null이 아니라면(조회 결과가 있다면)
+        // 테스트 통과됨
+        // 반환값이 null 일 경우 통과되게 하려면 assertNull() 사용
+        assertNotNull(
+                memberRepository.findByUseridAndPasswd(m.getUserid(), m.getPasswd()));
+    }
 
 }

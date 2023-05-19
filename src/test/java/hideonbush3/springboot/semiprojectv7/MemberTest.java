@@ -20,7 +20,7 @@ public class MemberTest {
     @Test
     @DisplayName("모든 회원 조회")
     public void findAllMember(){
-        List<Member> mbs = memberRepository.findAllMember();
+        List<Member> mbs = memberRepository.findAll();
         System.out.println(mbs);
     }
 

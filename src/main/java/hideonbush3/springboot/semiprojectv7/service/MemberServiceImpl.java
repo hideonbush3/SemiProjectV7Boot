@@ -16,7 +16,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean checkLogin(Member m, HttpSession sess) {
         boolean isLogin = false;
-        // member2 테이블에서 해당하는 아이디의 개수를 조회하고 그것이 0 이상(있을 경우)일 경우
+        // member 테이블에서 해당하는 아이디의 개수를 조회하고 그것이 0 이상(있을 경우)일 경우
         if (mdao.selectLogin(m) > 0){
             // 로그인 가능하면 세션변수에 아이디를 저장
             sess.setAttribute("UID", m.getUserid());

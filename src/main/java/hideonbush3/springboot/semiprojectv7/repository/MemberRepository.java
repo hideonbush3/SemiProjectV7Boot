@@ -10,11 +10,7 @@ import java.util.List;
 public interface MemberRepository
         extends JpaRepository<Member, Long> {
 
-    @Query("from Member")
     List<Member> findAllMember();
-
-    @Query("from Member where mbno = :mbno")
-    Member findMemberByMbno(@Param("mbno") Long mbno);
-
-
+    Member findMemberByMbno(Long mbno);
+    Member findByUseridAndPasswd(String userid, String passwd);
 }

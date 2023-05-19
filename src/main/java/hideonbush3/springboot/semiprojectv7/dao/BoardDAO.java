@@ -14,7 +14,7 @@ public interface BoardDAO {
 
     int countBoard(Map<String, Object> params);
 
-    Board selectOneBoard(String bno);
+    Board selectOneBoard(int bno);
 
     int insertBoard(Board bd);
 }

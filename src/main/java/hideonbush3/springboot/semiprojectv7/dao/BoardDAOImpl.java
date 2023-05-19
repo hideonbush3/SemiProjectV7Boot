@@ -36,6 +36,7 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public Board selectOneBoard(int bno) {
+        boardRepository.countViewBoard(bno);
         return boardRepository.findById((long)bno).get();
     }
 

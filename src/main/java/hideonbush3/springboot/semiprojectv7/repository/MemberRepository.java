@@ -10,5 +10,10 @@ public interface MemberRepository
 
     List<Member> findAll();
     Member findMemberByMbno(Long mbno);
-    Member findByUseridAndPasswd(String userid, String passwd);
+
+    // 로그인 처리 1
+//    Member findByUseridAndPasswd(String userid, String passwd);
+
+    // 로그인 처리 2
+    int countByUseridAndPasswd(String userid, String passwd);
 }

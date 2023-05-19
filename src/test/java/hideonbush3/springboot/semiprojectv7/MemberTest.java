@@ -9,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class MemberTest {
@@ -63,11 +62,15 @@ public class MemberTest {
         m.setUserid("ehgus94");
         m.setPasswd("ehgus94");
 
+        // 로그인 처리 1
         // 실행결과 반환값(Member 객체)가 null이 아니라면(조회 결과가 있다면)
         // 테스트 통과됨
         // 반환값이 null 일 경우 통과되게 하려면 assertNull() 사용
-        assertNotNull(
-                memberRepository.findByUseridAndPasswd(m.getUserid(), m.getPasswd()));
+//        assertNotNull(
+//                memberRepository.findByUseridAndPasswd(m.getUserid(), m.getPasswd()));
+
+        // 로그인 처리 2 countBy
+        assertEquals(1, memberRepository.countByUseridAndPasswd(m.getUserid(), m.getPasswd()));
     }
 
 }

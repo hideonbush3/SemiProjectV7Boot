@@ -53,7 +53,9 @@ public class JoinServiceImpl implements JoinService{
     @Override
     public boolean newMember(Member m) {
         boolean result = false;
+
         if(jndao.insertMember(m) > 0) result = true;
+
         return result;
     }
 

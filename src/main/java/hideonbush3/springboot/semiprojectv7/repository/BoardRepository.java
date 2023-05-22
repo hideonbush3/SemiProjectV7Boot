@@ -24,11 +24,11 @@ public interface BoardRepository extends PagingAndSortingRepository<Board, Long>
     int countBoardBy();
 
     // 게시글 검색
-    List<Board> findByTitleLike(Pageable paging, String fkey);
-
-    List<Board> findByTitleLikeOrContentLike(Pageable paging, String fkey, String fkey1);
-
     List<Board> findByUseridLike(Pageable paging, String fkey);
 
-    List<Board> findByContentLike(Pageable paging, String fkey);
+    List<Board> findByTitleContains(Pageable paging, String fkey);
+
+    List<Board> findByTitleContainsOrContentContains(Pageable paging, String fkey, String fkey1);
+
+    List<Board> findByContentContains(Pageable paging, String fkey);
 }

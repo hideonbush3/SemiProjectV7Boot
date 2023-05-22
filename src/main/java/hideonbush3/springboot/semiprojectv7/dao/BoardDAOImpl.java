@@ -37,7 +37,6 @@ public class BoardDAOImpl implements BoardDAO {
         // findByTitleEndsWith   : %검색어 - '%' 붙일 필요없음
         String ftype = params.get("ftype").toString();
         String fkey = params.get("fkey").toString();
-        fkey = "%" + fkey + "%";
         int cpage = (int) params.get("stbno");
 
         Pageable paging = PageRequest.of(cpage, 25, Sort.by("bno").descending());
@@ -61,12 +60,27 @@ public class BoardDAOImpl implements BoardDAO {
     public int countBoard() {
         // select ceil(count(bno)/25) from board
         int allcnt = boardRepository.countBoardBy();    // 게시글 전체 개수
-        return (int) Math.ceil(allcnt / 25);            // 전체 페이지 개수
+        return ((int) Math.ceil(allcnt / 25)) + 1;            // 전체 페이지 개수
     }
 
     @Override
     public int countBoard(Map<String, Object> params) {
-        return 0;
+        String ftype = params.get("ftype").toString();
+        String fkey = params.get("fkey").toString();
+        int allcnt = 0;
+
+        switch(ftype){
+            case "title": // 제목으로 검색
+                allcnt = boardRepository.countBoardByTitleContains(fkey); break;
+            case "titcont": // 제목 + 본문으로 검색
+                allcnt = boardRepository.countBoardByTitleContainsOrContentContains(fkey, fkey); break;
+            case "userid": // 작성자로 검색
+                allcnt = boardRepository.countBoardByUseridLike(fkey); break;
+            case "content": // 본문으로 검색
+                allcnt = boardRepository.countBoardByContentContains(fkey);
+        }
+
+        return ((int) Math.ceil(allcnt / 25)) + 1;
     }
 
     @Override

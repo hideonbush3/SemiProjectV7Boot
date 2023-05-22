@@ -29,6 +29,12 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public List<Board> selectBoard(Map<String, Object> params) {
+
+        // like 검색에 대한 query method
+        // findByTitleLike       : %검색어% - 검색어 앞 뒤로 '%'를 붙여야함
+        // findByTitleContains   : %검색어% - '%' 붙일 필요없음
+        // findByTitleStartsWith : 검색어% - '%' 붙일 필요없음
+        // findByTitleEndsWith   : %검색어 - '%' 붙일 필요없음
         String ftype = params.get("ftype").toString();
         String fkey = params.get("fkey").toString();
         fkey = "%" + fkey + "%";
@@ -40,13 +46,13 @@ public class BoardDAOImpl implements BoardDAO {
 
         switch(ftype){
             case "title": // 제목으로 검색
-                 result = boardRepository.findByTitleLike(paging, fkey); break;
+                 result = boardRepository.findByTitleContains(paging, fkey); break;
             case "titcont": // 제목 + 본문으로 검색
-                result = boardRepository.findByTitleLikeOrContentLike(paging, fkey, fkey); break;
+                result = boardRepository.findByTitleContainsOrContentContains(paging, fkey, fkey); break;
             case "userid": // 작성자로 검색
                 result = boardRepository.findByUseridLike(paging, fkey); break;
             case "content": // 본문으로 검색
-                result = boardRepository.findByContentLike(paging, fkey);
+                result = boardRepository.findByContentContains(paging, fkey);
         }
         return result;
     }

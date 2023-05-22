@@ -26,7 +26,7 @@ public interface BoardRepository extends PagingAndSortingRepository<Board, Long>
     // 게시글 검색
     List<Board> findByTitleLike(Pageable paging, String fkey);
 
-    List<Board> findByTitleOrContentLike(Pageable paging, String fkey, String fkey1);
+    List<Board> findByTitleLikeOrContentLike(Pageable paging, String fkey, String fkey1);
 
     List<Board> findByUseridLike(Pageable paging, String fkey);
 

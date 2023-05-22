@@ -31,4 +31,12 @@ public interface BoardRepository extends PagingAndSortingRepository<Board, Long>
     List<Board> findByTitleContainsOrContentContains(Pageable paging, String fkey, String fkey1);
 
     List<Board> findByContentContains(Pageable paging, String fkey);
+
+    int countBoardByTitleContains(String fkey);
+
+    int countBoardByTitleContainsOrContentContains(String fkey, String fkey1);
+
+    int countBoardByUseridLike(String fkey);
+
+    int countBoardByContentContains(String fkey);
 }

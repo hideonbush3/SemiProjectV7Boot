@@ -5,6 +5,7 @@ import hideonbush3.springboot.semiprojectv7.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,9 +19,11 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public List<Board> selectBoard(int cpage) {
-        Pageable paging = PageRequest.of(cpage, 25);
+        Pageable paging = // PageRequest.of(cpage, 25, Sort.by("bno").descending());
+                             PageRequest.of(cpage, 25, Sort.Direction.DESC, "bno");
         return boardRepository.findAll(paging).getContent();
-        // getContent()는 findAll()의 결과값을 List<T> 타입으로 변환한다
+        // getContent()는 findAll()의 결과값을
+        // Page<T>에서 List<T> 타입으로 변환한다
     }
 
     @Override

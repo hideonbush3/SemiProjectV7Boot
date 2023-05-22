@@ -30,7 +30,9 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public int countBoard() {
-        return 0;
+        // select ceil(count(bno)/25) from board
+        int allcnt = boardRepository.countBoardBy();    // 게시글 전체 개수
+        return (int) Math.ceil(allcnt / 25);            // 전체 페이지 개수
     }
 
     @Override
@@ -46,7 +48,6 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public int insertBoard(Board bd) {
-
         return Math.toIntExact(boardRepository.save(bd).getBno());
     }
 }

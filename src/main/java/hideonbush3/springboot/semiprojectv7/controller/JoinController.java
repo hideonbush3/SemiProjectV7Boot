@@ -1,9 +1,12 @@
 package hideonbush3.springboot.semiprojectv7.controller;
 
+import hideonbush3.springboot.semiprojectv7.model.Checkme;
 import hideonbush3.springboot.semiprojectv7.model.Member;
 import hideonbush3.springboot.semiprojectv7.service.JoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
@@ -24,8 +29,24 @@ public class JoinController {
     }
 
     @GetMapping("/checkme")
-    public String checkme(){
+    public String checkme(Model m){
+        m.addAttribute("checkme", new Checkme());
         return "join/checkme";
+    }
+
+    @PostMapping("/checkme")
+    public String checkmeok(@Valid Checkme checkme, BindingResult br, HttpSession sess){
+        // checkme에서 작성한 이름, 주민번호를 joinme에 보내는 방법 1
+        // redirect:/join/joinme?name=엄준식&jumin1=800505&jumin2=1112214
+
+        // checkme에서 작성한 이름, 주민번호를 joinme에 보내는 방법 2 - session
+
+        String viewPage = "redirect:/join/joinme";
+
+        if(br.hasErrors()) viewPage = "join/checkme";
+        else sess.setAttribute("ckm", checkme);
+
+        return viewPage;
     }
 
     @PostMapping("/joinme")

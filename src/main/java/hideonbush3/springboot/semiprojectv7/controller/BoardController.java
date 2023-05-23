@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping("/board")
 public class BoardController {
@@ -17,14 +19,17 @@ public class BoardController {
     private BoardService bdsrv;
 
     @GetMapping("/list")
-    public ModelAndView list(int cpg) {
+    public ModelAndView list(Integer cpg) {
         ModelAndView mv = new ModelAndView();
-
         mv.setViewName("board/list");
-        mv.addObject("bdlist", bdsrv.readBoard(cpg));   // 현재페이지에 출력할 게시글리스트
+
+        if(cpg == null || cpg == 0) cpg = 1;
+        Map<String, Object> bds = bdsrv.readBoard(cpg);
+
+        mv.addObject("bdlist", bds.get("bdlist"));   // 현재페이지에 출력할 게시글리스트
         mv.addObject("cpg", cpg);   // 현재페이지 번호
         mv.addObject("stpg", ((cpg - 1) / 10) * 10 + 1);
-        mv.addObject("cntpg", bdsrv.countBoard());  // 총페이지수
+        mv.addObject("cntpg", bds.get("cntpg"));  // 총페이지수
 
         return mv;
     }

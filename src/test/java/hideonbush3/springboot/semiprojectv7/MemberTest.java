@@ -23,16 +23,16 @@ public class MemberTest {
         System.out.println(mbs);
     }
 
-    @Test
-    @DisplayName("회원 추가")
-    public void saveMember(){
-        Member m = new Member(null, "김연습", "950508", "1234567", "hideonbush3", "hideonbush3"
-        , "123-456", "서울특별시 강남구 논현동", "타워팰리스 1701호", "ppoii0961@naver.com"
-        , "010-8238-1170", null);
-
-
-        memberRepository.save(m);
-    }
+//    @Test
+//    @DisplayName("회원 추가")
+//    public void saveMember(){
+//        Member m = new Member(null, "김연습", "950508", "1234567", "hideonbush3", "hideonbush3"
+//        , "123-456", "서울특별시 강남구 논현동", "타워팰리스 1701호", "ppoii0961@naver.com"
+//        , "010-8238-1170", null);
+//
+//
+//        memberRepository.save(m);
+//    }
 
     @Test
     @DisplayName("회원정보수정")

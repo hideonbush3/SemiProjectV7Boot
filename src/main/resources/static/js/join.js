@@ -29,6 +29,7 @@ chk2btn?.addEventListener('click', () => {
     else if (!chkfrm2.chkjumin.checked) alert('주민번호 처리에 동의하세요!!');
     else {
         chkfrm2.method = 'post';
+        chkfrm2.action = '/join/checkme';
         chkfrm2.submit();
     }
 });
@@ -67,7 +68,7 @@ joinbtn?.addEventListener('click', ()=>{
         joinfrm.phone.value = joinfrm.tel1.value + '-' + joinfrm.tel2.value + '-' + joinfrm.tel3.value;
 
         joinfrm.method = 'post';
-        joinfrm.action = '/join/joinok';
+        joinfrm.action = "/join/joinme"
         joinfrm.submit();
     }
 

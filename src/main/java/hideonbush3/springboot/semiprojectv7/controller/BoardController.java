@@ -5,11 +5,13 @@ import hideonbush3.springboot.semiprojectv7.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -59,11 +61,14 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String writeok(Board bd) {
-        String viewPage = "error";
-        if(bdsrv.newBoard(bd)){
-            viewPage = "redirect:/board/list?cpg=1";
-        }
+    public String writeok(@Valid Board board,
+                          BindingResult br) {   // 오류 메세지를 저장할 객체 BindingResult
+        String viewPage = "redirect:/board/list?cpg=1";
+
+        if(br.hasErrors()){ // 오류 메세지 저장 객체에 오류 메세지가 있다면
+            viewPage = "board/write";
+        }else
+            bdsrv.newBoard(board);
         return viewPage;
     }
     @GetMapping("/view")

@@ -6,7 +6,7 @@
 <th:block layout:fragment="content">
     <div id="main">
         <div class="mt-5">
-            <i class="fa-solid fa-baby fa-2xl">회원가입</i>
+            <i class="fa-solid fa-users fa-2xl"> 회원가입 </i>
             <hr>
         </div>
 
@@ -18,10 +18,10 @@
                 <li class="breadcrumb-item active">
                     <button type="button" disabled
                             class="btn btn-success">실명확인</button></li>
-                <li class="breadcrumb-item active">
+                <li class="breadcrumb-item">
                     <button type="button" disabled
                             class="btn btn-light">정보입력</button></li>
-                <li class="breadcrumb-item active">
+                <li class="breadcrumb-item">
                     <button type="button" disabled
                             class="btn btn-light">가입완료</button></li>
             </ul>
@@ -32,11 +32,12 @@
             <small class="text-muted">
                 회원으로 가입하는 방법에는 2가지 방법이 있습니다.
                 아래에서 원하는 방법을 선택해주세요. <br>
-                입력하신 정보는 가입완료 전까지 본 사이트에 저장되지 않습니다.</small>
+                입력하신 정보는 가입완료 전까지 본 사이트에 저장되지 않습니다.
+            </small>
             <hr>
         </div>
 
-        <div class="card card-body bg-light mx-3 mt-5">
+        <div class="card card-body bg-light mt-5 mx-3">
             <h3 class="mb-5">회원가입</h3>
             <form id="checkfrm1" name="checkfrm1">
                 <div class="row">
@@ -45,14 +46,14 @@
                             <label for="name"
                                    class="col-3 col-form-label text-warning text-end">이름</label>
                             <div class="col-6">
-                                <input type="text" id="name" name="name"
+                                <input type="text" name="name" id="name"
                                        class="form-control border-warning"></div>
                         </div>
                         <div class="row mb-2">
                             <label for="byear"
                                    class="col-3 col-form-label text-warning text-end">생년월일</label>
                             <div class="col-3">
-                                <select name="byear" id="byear"
+                                <select id="byear" name="byear"
                                         class="form-select col-3 border-warning">
                                     <option>년도</option>
                                     <option>2023</option>
@@ -62,7 +63,7 @@
                                 </select>
                             </div>
                             <div class="col-3">
-                                <select name="bmonth" id="bmonth"
+                                <select id="bmonth" name="bmonth"
                                         class="form-select col-3 border-warning">
                                     <option>월</option>
                                     <option>01</option>
@@ -72,7 +73,7 @@
                                 </select>
                             </div>
                             <div class="col-3">
-                                <select name="bday" id="bday"
+                                <select id="bday" name="bday"
                                         class="form-select col-3 border-warning">
                                     <option>일</option>
                                     <option>01</option>
@@ -96,7 +97,7 @@
                             <div class="col-3 mt-2">
                                 <div class="form-check">
                                     <input type="radio" id="gfmale" name="gender"
-                                           value="f" class="form-check-input">
+                                           value="f" checked class="form-check-input">
                                     <label for="gfmale"
                                            class="form-check-label text-warning">여자</label>
                                 </div>
@@ -116,55 +117,55 @@
                         <hr class="w-75 mx-auto">
                         <button type="button" id="check1btn"
                                 class="btn btn-primary">
-                            <i class="fa-solid fa-check"></i> 확인하기</button>
+                            <i class="fas fa-check"></i> 확인하기</button>
                         <button type="button" id="cancel1btn"
                                 class="btn btn-danger">
-                            <i class="fa-solid fa-xmark"></i> 취소하기</button>
+                            <i class="fas fa-times"></i> 취소하기</button>
                     </div>
-
                 </div>
             </form>
         </div>
 
-        <div class="card card-body bg-light mx-3 mt-5">
-            <h3>실명확인 회원가입</h3>
+        <div class="card card-body bg-light mt-5 mx-3">
+            <h3 class="mb-5">실명확인 회원가입</h3>
             <form id="checkfrm2" name="checkfrm2" th:object="${checkme}">
                 <div class="row">
                     <div class="col-5 offset-1">
                         <div class="row mb-3">
-                            <label for="name"
+                            <label for="name2"
                                    class="col-3 col-form-label text-warning text-end">이름</label>
                             <div class="col-6">
-                                <input type="text" id="name2" name="name"
+                                <input type="text" name="name" id="name2"
                                        class="form-control border-warning">
-                                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                                <span th:if="${#fields.hasErrors('name')}"
+                                      th:errors="*{name}" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <label for="jumin1"
                                    class="col-3 col-form-label text-warning text-end">주민번호</label>
-
                             <div class="col-3">
                                 <input type="text" name="jumin1" id="jumin1"
                                        class="form-control border-warning">
-                                <span class="text-danger" th:if="${#fields.hasErrors('jumin1')}" th:errors="*{jumin1}"></span>
+                                <span th:if="${#fields.hasErrors('jumin1')}"
+                                      th:errors="*{jumin1}" class="text-danger"></span>
                             </div>
                             <div class="col-3">
                                 <input type="text" name="jumin2" id="jumin2"
                                        class="form-control border-warning">
-                                <span class="text-danger" th:if="${#fields.hasErrors('jumin2')}" th:errors="*{jumin2}"></span>
+                                <span th:if="${#fields.hasErrors('jumin2')}"
+                                      th:errors="*{jumin2}" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-3 col-form-label text-warning text-end">&nbsp;</label>
+                            <label class="col-3 col-form-label text-warning">&nbsp;</label>
                             <div class="col-7 mt-2">
                                 <div class="form-check">
-                                    <input type="radio" id="chkjumin" name="chkjumin"
+                                    <input type="checkbox" id="chkjumin" name="chkjumin"
                                            value="y" class="form-check-input">
                                     <label for="chkjumin"
                                            class="form-check-label text-warning">
-                                        주민번호 처리에 동의합니다.
-                                    </label>
+                                        주민번호 처리에 동의합니다</label>
                                 </div>
                             </div>
                         </div>
@@ -179,24 +180,24 @@
                             <li>개인정보보호법에 따라 <span style="color:red;">이용 동의</span>를 받습니다.</li>
                         </ul>
                     </div>
-
                 </div>
                 <div class="row">
                     <div class="col text-center">
                         <hr class="w-75 mx-auto">
                         <button type="button" id="check2btn"
                                 class="btn btn-primary">
-                            <i class="fa-solid fa-check"></i> 확인하기</button>
+                            <i class="fas fa-check"></i> 확인하기</button>
                         <button type="button" id="cancel2btn"
                                 class="btn btn-danger">
-                            <i class="fa-solid fa-xmark"></i> 취소하기</button>
+                            <i class="fas fa-times"></i> 취소하기</button>
                     </div>
-
                 </div>
-
             </form>
         </div>
-    </div>
-    <script src="/assets/js/join.js"></script>
 
+    </div>
+
+    <script src="/assets/js/join.js"></script>
 </th:block>
+
+</html>

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -49,23 +48,32 @@ public class JoinController {
         return viewPage;
     }
 
+    @GetMapping("/joinme")
+    public String joinme(Model m) {
+
+        m.addAttribute("member", new Member());
+
+        return "join/joinme";
+    }
+
     @PostMapping("/joinme")
-    public ModelAndView joinmeok(Member mb){
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("mb", mb);
-        mv.setViewName("join/joinme");
-        return mv;
+    public String joinmeok(@Valid Member member,
+                           BindingResult br, HttpSession sess) {
+        String viewPage = "redirect:/join/joinok";
+
+        if (br.hasErrors()) viewPage = "join/joinme";
+        else {
+            jnsrv.newMember(member);
+            sess.invalidate();
+        }
+
+        return viewPage;
     }
 
     // 회원가입 처리
-    @PostMapping("/joinok")
-    public String joinok(Member m) {
-        String view = "error";
-
-        if (jnsrv.newMember(m)){
-            view = "join/joinok";
-        }
-        return view;
+    @GetMapping("/joinok")
+    public String joinok() {
+        return "join/joinok";
     }
 
     // 우편번호 검색

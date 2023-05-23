@@ -3,6 +3,7 @@ package hideonbush3.springboot.semiprojectv7.dao;
 import hideonbush3.springboot.semiprojectv7.model.Board;
 import hideonbush3.springboot.semiprojectv7.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -34,20 +35,21 @@ public class BoardDAOImpl implements BoardDAO {
     }
 
     @Override
-    public List<Board> selectBoard(Map<String, Object> params) {
+    public Map<String, Object> selectBoard(Map<String, Object> params) {
 
         // like 검색에 대한 query method
         // findByTitleLike       : %검색어% - 검색어 앞 뒤로 '%'를 붙여야함
         // findByTitleContains   : %검색어% - '%' 붙일 필요없음
         // findByTitleStartsWith : 검색어% - '%' 붙일 필요없음
         // findByTitleEndsWith   : %검색어 - '%' 붙일 필요없음
+
         String ftype = params.get("ftype").toString();
         String fkey = params.get("fkey").toString();
         int cpage = (int) params.get("stbno");
 
         Pageable paging = PageRequest.of(cpage, 25, Sort.by("bno").descending());
 
-        List<Board> result = null;
+        Page<Board> result = null;
 
         switch(ftype){
             case "title": // 제목으로 검색
@@ -59,27 +61,16 @@ public class BoardDAOImpl implements BoardDAO {
             case "content": // 본문으로 검색
                 result = boardRepository.findByContentContains(paging, fkey);
         }
-        return result;
+
+        Map<String, Object> bds = new HashMap<>();
+        bds.put("bdlist", result.getContent());
+        bds.put("cntpg",result.getTotalPages());
+        return bds;
     }
 
     @Override
     public int countBoard(Map<String, Object> params) {
-        String ftype = params.get("ftype").toString();
-        String fkey = params.get("fkey").toString();
-        int allcnt = 0;
-
-        switch(ftype){
-            case "title": // 제목으로 검색
-                allcnt = boardRepository.countBoardByTitleContains(fkey); break;
-            case "titcont": // 제목 + 본문으로 검색
-                allcnt = boardRepository.countBoardByTitleContainsOrContentContains(fkey, fkey); break;
-            case "userid": // 작성자로 검색
-                allcnt = boardRepository.countBoardByUseridLike(fkey); break;
-            case "content": // 본문으로 검색
-                allcnt = boardRepository.countBoardByContentContains(fkey);
-        }
-
-        return ((int) Math.ceil(allcnt / 25)) + 1;
+        return 0;
     }
 
     @Override

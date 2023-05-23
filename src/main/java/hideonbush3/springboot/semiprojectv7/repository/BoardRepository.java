@@ -1,6 +1,7 @@
 package hideonbush3.springboot.semiprojectv7.repository;
 
 import hideonbush3.springboot.semiprojectv7.model.Board;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,19 +25,19 @@ public interface BoardRepository extends PagingAndSortingRepository<Board, Long>
     int countBoardBy();
 
     // 게시글 검색
-    List<Board> findByUseridLike(Pageable paging, String fkey);
+    Page<Board> findByUseridLike(Pageable paging, String fkey);
 
-    List<Board> findByTitleContains(Pageable paging, String fkey);
+    Page<Board> findByTitleContains(Pageable paging, String fkey);
 
-    List<Board> findByTitleContainsOrContentContains(Pageable paging, String fkey, String fkey1);
+    Page<Board> findByTitleContainsOrContentContains(Pageable paging, String fkey, String fkey1);
 
-    List<Board> findByContentContains(Pageable paging, String fkey);
+    Page<Board> findByContentContains(Pageable paging, String fkey);
 
-    int countBoardByTitleContains(String fkey);
-
-    int countBoardByTitleContainsOrContentContains(String fkey, String fkey1);
-
-    int countBoardByUseridLike(String fkey);
-
-    int countBoardByContentContains(String fkey);
+//    int countBoardByTitleContains(String fkey);
+//
+//    int countBoardByTitleContainsOrContentContains(String fkey, String fkey1);
+//
+//    int countBoardByUseridLike(String fkey);
+//
+//    int countBoardByContentContains(String fkey);
 }

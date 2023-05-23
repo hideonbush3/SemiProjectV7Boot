@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Data
@@ -21,17 +22,21 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BNO")
     private Long bno;
-    @Column(name = "TITLE")
+
+    // 문자열 길이 0인 것과 공백 문자열도 체크
+    @NotBlank(message = "제목은 필수 입력항목입니다!!")
     private String title;
-    @Column(name = "USERID")
+
+    @NotBlank(message = "아이디는 필수 입력항목입니다!!")
     private String userid;
 
-    @Column(insertable = false, updatable = false, name = "THUMBS")
+    @Column(insertable = false, updatable = false)
     private Integer thumbs;
 
-    @Column(insertable = false, updatable = false, name = "VIEWS")
+    @Column(insertable = false, updatable = false)
     private Integer views;
-    @Column(name = "CONTENT")
+
+    @NotBlank(message = "본문은 필수 입력항목입니다!!")
     private String content;
 
     @CreatedDate

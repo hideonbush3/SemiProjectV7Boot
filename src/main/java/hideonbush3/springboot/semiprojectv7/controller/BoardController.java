@@ -38,11 +38,13 @@ public class BoardController {
     public ModelAndView find(int cpg, String ftype, String fkey){
         ModelAndView mv = new ModelAndView();
 
+        Map<String, Object> bds = bdsrv.readBoard(cpg, ftype, fkey);
+
         mv.setViewName("board/list");
-        mv.addObject("bdlist", bdsrv.readBoard(cpg, ftype, fkey));
+        mv.addObject("bdlist", bds.get("bdlist"));
         mv.addObject("cpg", cpg);   // 현재페이지 번호
         mv.addObject("stpg", ((cpg - 1) / 10) * 10 + 1);
-        mv.addObject("cntpg", bdsrv.countBoard(ftype, fkey));  // 총페이지수
+        mv.addObject("cntpg", bds.get("cntpg"));  // 총페이지수
         return mv;
     }
 

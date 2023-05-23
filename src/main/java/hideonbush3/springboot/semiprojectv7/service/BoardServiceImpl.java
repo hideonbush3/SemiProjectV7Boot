@@ -21,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
 
     // 검색 후 게시글 리스트 출력
     @Override
-    public List<Board> readBoard(int cpg, String ftype, String fkey){
+    public Map<String, Object> readBoard(int cpg, String ftype, String fkey){
         int stbno = (cpg - 1);
 
         // 처리시 사용할 데이터들을 해쉬맵에 담아서 보냄
@@ -31,15 +31,6 @@ public class BoardServiceImpl implements BoardService {
         params.put("fkey", fkey);
 
         return bddao.selectBoard(params);
-    }
-
-    @Override
-    public int countBoard(String ftype, String fkey){
-        Map<String, Object> params = new HashMap<>();
-        params.put("ftype", ftype);
-        params.put("fkey", fkey);
-
-        return bddao.countBoard(params);
     }
 
     @Override

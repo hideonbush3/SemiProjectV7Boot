@@ -29,12 +29,16 @@
 
         <div class="row offset-2 col-8 mt-2">
             <form class="card card-body bg-light"
-                  name="bdfrm" id="bdfrm">
+                  name="bdfrm" id="bdfrm" th:object="${board}">
                 <div class="row">
                     <label for="title" class="col-form-label text-danger text-end col-3">제목</label>
                     <div class="col-6">
                         <input type="text" id="title" name="title"
                                class="form-control border-danger">
+                        <p th:if="${#fields.hasErrors('title')}"
+                        th:errors="*{title}"></p>   <!-- board 클래스의 title 멤버변수에 오류가 있다면 -->
+                                                    <!-- Entity 의 해당 멤버변수의 @NotBlank 어노테이션의
+                                                    message 속성에 지정해둔 값을 출력 -->
                     </div>
                 </div>
 

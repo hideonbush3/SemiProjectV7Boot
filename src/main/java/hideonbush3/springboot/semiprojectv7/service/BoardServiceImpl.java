@@ -15,13 +15,8 @@ public class BoardServiceImpl implements BoardService {
     @Autowired private BoardDAO bddao;
 
     @Override
-    public List<Board> readBoard(int cpage) {
+    public Map<String, Object> readBoard(int cpage) {
         return bddao.selectBoard(cpage-1);
-    }
-
-    @Override
-    public int countBoard() {
-        return bddao.countBoard();
     }
 
     // 검색 후 게시글 리스트 출력

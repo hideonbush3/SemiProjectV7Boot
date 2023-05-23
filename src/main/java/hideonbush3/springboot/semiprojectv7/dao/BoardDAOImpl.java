@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,14 +18,19 @@ public class BoardDAOImpl implements BoardDAO {
     @Autowired
     BoardRepository boardRepository;
 
+
     // 게시판 게시글 출력
     @Override
-    public List<Board> selectBoard(int cpage) {
-        Pageable paging = // PageRequest.of(cpage, 25, Sort.by("bno").descending());
-                             PageRequest.of(cpage, 25, Sort.Direction.DESC, "bno");
-        return boardRepository.findAll(paging).getContent();
+    public Map<String, Object> selectBoard(int cpage) {
+        // 페이징 시 정렬 순서 지정
+        Pageable paging = PageRequest.of(cpage, 25, Sort.Direction.DESC, "bno");
+
         // getContent()는 findAll()의 결과값을
         // Page<T>에서 List<T> 타입으로 변환한다
+        Map<String, Object> bds = new HashMap<>();
+        bds.put("bdlist",boardRepository.findAll(paging).getContent());
+        bds.put("cntpg",boardRepository.findAll(paging).getTotalPages());
+        return bds;
     }
 
     @Override
@@ -54,13 +60,6 @@ public class BoardDAOImpl implements BoardDAO {
                 result = boardRepository.findByContentContains(paging, fkey);
         }
         return result;
-    }
-
-    @Override
-    public int countBoard() {
-        // select ceil(count(bno)/25) from board
-        int allcnt = boardRepository.countBoardBy();    // 게시글 전체 개수
-        return ((int) Math.ceil(allcnt / 25)) + 1;            // 전체 페이지 개수
     }
 
     @Override

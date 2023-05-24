@@ -6,9 +6,21 @@
 <th:block layout:fragment="content">
     <div id="main">
         <div class="mt-5">
-            <i class="fa-solid fa-download fa-2xl"> 자료실 </i>
+            <i class="fa-solid fa-file fa-2xl"> 자료실 </i>
             <hr>
         </div>
+
+        <div class="row">
+            <div class="row offset-2 col-6"></div>
+            <div class="col-2 text-end">
+                <th:block th:if="${session.UID ne null}">
+                    <button type="button" class="btn btn-light" id="newbtn">
+                        <i class="fa fa-plus-circle"> </i> 새글쓰기</button>
+                </th:block>
+            </div>
+        </div>
+
+
 
     </div>
 

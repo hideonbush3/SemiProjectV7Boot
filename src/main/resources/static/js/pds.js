@@ -1,3 +1,9 @@
+// -------------------------------------- 자료실 리스트
+const newbtn = document.querySelector('#newbtn');
+newbtn?.addEventListener('click', () => {
+    location.href="/pds/write";
+})
+
 // -------------------------------------- 새글쓰기
 const writebtn = document.querySelector('#writebtn');
 writebtn?.addEventListener('click', () => {
@@ -10,10 +16,5 @@ writebtn?.addEventListener('click', () => {
         pdsfrm.enctype ='multipart/form-data';
         pdsfrm.submit();
     }
-})
-
-const newbtn = document.querySelector('#newbtn');
-newbtn?.addEventListener('click', () => {
-    location.href="/pds/write";
 })
 

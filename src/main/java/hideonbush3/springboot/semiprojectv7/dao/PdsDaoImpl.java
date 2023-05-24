@@ -1,8 +1,6 @@
 package hideonbush3.springboot.semiprojectv7.dao;
 
 import hideonbush3.springboot.semiprojectv7.model.Pds;
-import hideonbush3.springboot.semiprojectv7.model.PdsAttach;
-import hideonbush3.springboot.semiprojectv7.repository.PdsAttachRepository;
 import hideonbush3.springboot.semiprojectv7.repository.PdsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

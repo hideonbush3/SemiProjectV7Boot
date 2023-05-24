@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
@@ -48,13 +50,17 @@ public class PilotController {
             // abc.png => abc0ddc0d01-8315-4104-b0ce-b90f9b62988720230424151228.png
             String uuid = UUID.randomUUID()
                     .toString().replace("-", "");   // uuid에서 '-' 제거
-            m.addAttribute("uuid", uuid);
 
             // 파일명과 확장자 분리하기
             String fileName = fname.split("[.]")[0];
             String fileExt = fname.split("[.]")[1];
 
             // 겹치지 않는 파일명 작성을 위해 유니크한 값 생성2
+            uuid = LocalDate.now() + "" + LocalTime.now();
+            uuid = uuid.replace("-", "").replace(":", "")
+                    .replace(".", "");
+
+            m.addAttribute("uuid", uuid);
 
             // 업로드한 파일 저장하기
             attach.transferTo(new File("C:/Java/bootUpload/"

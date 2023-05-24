@@ -46,7 +46,7 @@
                     <label for="userid" class="col-form-label text-danger text-end col-3">작성자</label>
                     <div class="col-6">
                         <input type="text" id="userid" name="userid"
-                               class="form-control border-danger bg-light" readonly value="hideonbush3">
+                               class="form-control border-danger bg-light" readonly th:value="${session.UID}">
                         <span th:if="${#fields.hasErrors('userid')}"
                               th:errors="*{userid}" class="text-warning"></span>
                     </div>

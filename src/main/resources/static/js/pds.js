@@ -12,3 +12,8 @@ writebtn?.addEventListener('click', () => {
     }
 })
 
+const newbtn = document.querySelector('#newbtn');
+newbtn?.addEventListener('click', () => {
+    location.href="/pds/write";
+})
+

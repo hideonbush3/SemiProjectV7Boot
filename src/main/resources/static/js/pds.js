@@ -17,3 +17,10 @@ const newbtn = document.querySelector('#newbtn');   // 새글쓰기 버튼
 newbtn?.addEventListener('click', () => {
     location.href="/pds/write";
 })
+
+
+// view
+const listbtn = document.querySelector('#listbtn');
+listbtn?.addEventListener('click', () => {
+    location.href = "/pds/list?cpg=1";
+})

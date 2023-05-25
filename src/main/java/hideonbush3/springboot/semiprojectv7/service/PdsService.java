@@ -8,4 +8,6 @@ import java.util.Map;
 public interface PdsService {
     Map<String, Object> newPds(Pds pds);
     boolean newPdsAttach(MultipartFile attach, Map<String, Object> pno);
+
+    Map<String, Object> readPds(int cpg);
 }

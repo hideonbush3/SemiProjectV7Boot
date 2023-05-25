@@ -1,6 +1,7 @@
 package hideonbush3.springboot.semiprojectv7.service;
 
 import hideonbush3.springboot.semiprojectv7.model.Pds;
+import hideonbush3.springboot.semiprojectv7.model.PdsAttach;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
@@ -10,4 +11,8 @@ public interface PdsService {
     boolean newPdsAttach(MultipartFile attach, Map<String, Object> pno);
 
     Map<String, Object> readPds(int cpg);
+
+    Pds readOnePds(int pno);
+
+    PdsAttach readOnePdsAttach(int pno);
 }

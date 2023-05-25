@@ -5,7 +5,13 @@ import hideonbush3.springboot.semiprojectv7.model.PdsAttach;
 import hideonbush3.springboot.semiprojectv7.repository.PdsaRepository;
 import hideonbush3.springboot.semiprojectv7.repository.PdsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository("pdsdao")
 public class PdsDaoImpl implements PdsDao{
@@ -25,5 +31,18 @@ public class PdsDaoImpl implements PdsDao{
     @Override
     public int insertPdsAttach(PdsAttach pa) {
         return Math.toIntExact(pdsaRepository.save(pa).getPano());
+    }
+
+    @Override
+    public Map<String, Object> selectPds(int cpg) {
+        // 페이징 시 정렬 순서 지정
+        Pageable paging = PageRequest.of(cpg, 25, Sort.Direction.DESC, "pno");
+
+        // getContent()는 findAll()의 결과값을
+        // Page<T>에서 List<T> 타입으로 변환한다
+        Map<String, Object> pds = new HashMap<>();
+        pds.put("pdslist",pdsRepository.findAll(paging).getContent());
+        pds.put("cntpg",pdsRepository.findAll(paging).getTotalPages());
+        return pds;
     }
 }

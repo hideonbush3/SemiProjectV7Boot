@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -31,9 +32,13 @@ public class PdsController {
         mv.setViewName("pds/list");
 
         if(cpg == null || cpg == 0) cpg = 1;
+        // 자료실 게시글 읽어옴
         Map<String, Object> pds = pdssrv.readPds(cpg);
+        // 게시글의 첨부파일 유형 읽어옴
+        List<String> ftypes = pdssrv.readFtype();
 
         mv.addObject("pdslist", pds.get("pdslist"));   // 현재페이지에 출력할 게시글리스트
+        mv.addObject("ftypes", ftypes);
         mv.addObject("cpg", cpg);   // 현재페이지 번호
         mv.addObject("stpg", ((cpg - 1) / 10) * 10 + 1);
         mv.addObject("cntpg", pds.get("cntpg"));  // 총페이지수

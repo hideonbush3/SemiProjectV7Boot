@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository("pdsdao")
@@ -60,6 +61,11 @@ public class PdsDaoImpl implements PdsDao{
     @Override
     public void downfile(int pno) {
         pdsaRepository.countDownById(pno);
+    }
+
+    @Override
+    public List<String> selectFtype(){
+        return pdsaRepository.findByFtypes();
     }
 
 }

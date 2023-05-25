@@ -68,4 +68,9 @@ public class PdsServiceImpl implements PdsService{
     public UrlResource getResource(String fname, String uuid) {
         return pdsUtils.getResource(fname, uuid);
     }
+
+    @Override
+    public void downfile(int pno) {
+        pdsdao.downfile(pno);
+    }
 }

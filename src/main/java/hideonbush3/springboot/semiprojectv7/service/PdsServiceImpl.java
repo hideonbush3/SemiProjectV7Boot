@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service("pdssrv")
@@ -72,5 +73,10 @@ public class PdsServiceImpl implements PdsService{
     @Override
     public void downfile(int pno) {
         pdsdao.downfile(pno);
+    }
+
+    @Override
+    public List<String> readFtype(){
+        return pdsdao.selectFtype();
     }
 }

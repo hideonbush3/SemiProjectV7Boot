@@ -6,6 +6,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 
 public interface PdsService {
@@ -23,4 +24,6 @@ public interface PdsService {
     UrlResource getResource(String fname, String uuid);
 
     void downfile(int pno);
+
+    List<String> readFtype();
 }

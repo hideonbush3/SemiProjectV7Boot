@@ -41,4 +41,9 @@ public class PdsServiceImpl implements PdsService{
 
         return (pano > 0) ? true : false;
     }
+
+    @Override
+    public Map<String, Object> readPds(int cpg) {
+        return pdsdao.selectPds(cpg - 1);
+    }
 }

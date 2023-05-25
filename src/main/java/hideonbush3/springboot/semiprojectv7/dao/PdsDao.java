@@ -5,4 +5,6 @@ import hideonbush3.springboot.semiprojectv7.model.PdsAttach;
 
 public interface PdsDao {
     int insertPds(Pds pds);
+
+    int insertPdsAttach(PdsAttach pa);
 }

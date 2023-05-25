@@ -6,8 +6,8 @@
 <th:block layout:fragment="content">
 
     <div id="main" th:with="pglink=${(#strings.isEmpty(param.fkey))
-    ? '/board/list?cpg=' :
-    '/board/find?ftype=' + param.ftype + '&fkey=' + param.fkey + '&cpg='}">
+    ? '/pds/list?cpg=' :
+    '/pds/find?ftype=' + param.ftype + '&fkey=' + param.fkey + '&cpg='}">
 
         <th:block th:if="${cpg gt cntpg}">
             <script th:inline="javascript">
@@ -16,7 +16,7 @@
         </th:block>
 
         <div class="mt-5">
-            <i class="fa-solid fa-cloud fa-2xl"> 게시판 </i>
+            <i class="fa-solid fa-cloud fa-2xl"> 자료실 </i>
             <hr>
         </div>
 
@@ -129,5 +129,5 @@
 
     </div>
 
-    <script src="/assets/js/board.js"></script>
+    <script src="/assets/js/pds.js"></script>
 </th:block>

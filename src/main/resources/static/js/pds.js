@@ -1,9 +1,3 @@
-// -------------------------------------- 자료실 리스트
-const newbtn = document.querySelector('#newbtn');
-newbtn?.addEventListener('click', () => {
-    location.href="/pds/write";
-})
-
 // -------------------------------------- 새글쓰기
 const writebtn = document.querySelector('#writebtn');
 writebtn?.addEventListener('click', () => {
@@ -18,3 +12,8 @@ writebtn?.addEventListener('click', () => {
     }
 })
 
+// -------------------------------------- 자료실 리스트
+const newbtn = document.querySelector('#newbtn');   // 새글쓰기 버튼
+newbtn?.addEventListener('click', () => {
+    location.href="/pds/write";
+})

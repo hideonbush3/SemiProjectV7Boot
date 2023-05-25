@@ -11,4 +11,8 @@ public interface PdsDao {
     int insertPdsAttach(PdsAttach pa);
 
     Map<String, Object> selectPds(int i);
+
+    Pds selectOnePds(int pno);
+
+    PdsAttach selectOnePdsAttach(int pno);
 }

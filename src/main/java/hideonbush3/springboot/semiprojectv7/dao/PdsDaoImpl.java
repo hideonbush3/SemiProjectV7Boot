@@ -56,4 +56,10 @@ public class PdsDaoImpl implements PdsDao{
     public PdsAttach selectOnePdsAttach(int pno) {
         return pdsaRepository.findByPno(pno);
     }
+
+    @Override
+    public void downfile(int pno) {
+        pdsaRepository.countDownById(pno);
+    }
+
 }

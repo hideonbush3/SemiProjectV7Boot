@@ -15,4 +15,6 @@ public interface PdsDao {
     Pds selectOnePds(int pno);
 
     PdsAttach selectOnePdsAttach(int pno);
+
+    void downfile(int pno);
 }

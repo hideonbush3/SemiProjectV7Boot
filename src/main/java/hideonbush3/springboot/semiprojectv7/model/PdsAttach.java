@@ -20,7 +20,7 @@ public class PdsAttach {
     private String fname;
     private String ftype;
     private String fsize;
-    @Column(insertable = false, updatable = false)
+    @Column(insertable = false)
     private Integer fdown;
     private Integer pno;
 }

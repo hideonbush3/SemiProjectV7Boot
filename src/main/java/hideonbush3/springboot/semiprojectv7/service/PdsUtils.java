@@ -2,10 +2,16 @@ package hideonbush3.springboot.semiprojectv7.service;
 
 import hideonbush3.springboot.semiprojectv7.model.PdsAttach;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Map;
@@ -54,5 +60,50 @@ public class PdsUtils{
         }
 
         return pa;
+    }
+
+    public HttpHeaders getHeader(String fname, String uuid) {
+        fname = UriUtils.encode(fname, StandardCharsets.UTF_8);
+
+        // 파일명, uuid 값을 넘겨주면
+        // 저장될경로/파일명uuid.확장자 형태를 반환하는 메서드
+        String dfname = makeDfname(fname, uuid);
+
+        // MIME 타입 지정
+        // 브라우저에 다운로드할 파일에 대한 정보 제공
+        HttpHeaders header = new HttpHeaders();
+        try {
+            header.add("Content-Type",
+                    Files.probeContentType(Paths.get(dfname)));
+            header.add("Content-Disposition",
+                    "attachment; filename=" + fname + "");
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        return header;
+    }
+
+    private String makeDfname(String fname, String uuid) {
+        
+        int pos = fname.lastIndexOf(".");
+        String name = fname.substring(0, pos);
+        String ext = fname.substring(pos + 1);
+        
+        return saveDir + name + uuid + "." + ext;
+    }
+
+    public UrlResource getResource(String fname, String uuid) {
+        fname = UriUtils.encode(fname, StandardCharsets.UTF_8);
+
+        // 다운로드할 파일 객체 생성
+        UrlResource resource = null;
+        try{
+            resource = new UrlResource("file:" + makeDfname(fname, uuid) + "");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        return resource;
     }
 }

@@ -23,4 +23,6 @@ public interface PdsDao {
     List<String> selectFtype();
 
     List<PdsReply> selectPdsReply(int pno);
+
+    boolean insertPdsReply(PdsReply pdsReply);
 }

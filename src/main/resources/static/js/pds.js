@@ -24,3 +24,15 @@ const listbtn = document.querySelector('#listbtn');
 listbtn?.addEventListener('click', () => {
     location.href = "/pds/list?cpg=1";
 })
+
+// ------------------------------------- 댓글 작성
+const rpnewbtn = document.querySelector('#rpnewbtn');
+rpnewbtn?.addEventListener('click', () => {
+    const rpfrm = document.forms.rpfrm;
+    if(rpfrm.reply.value == "")alert("내용을 입력하세요");
+    else{
+        rpfrm.method = 'post';
+        rpfrm.action = '/pds/replyok?pno=' + rpfrm.pno.value;
+        rpfrm.submit();
+    }
+})

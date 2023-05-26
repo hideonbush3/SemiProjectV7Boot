@@ -1,7 +1,6 @@
 package hideonbush3.springboot.semiprojectv7.controller;
 
 import hideonbush3.springboot.semiprojectv7.model.Pds;
-import hideonbush3.springboot.semiprojectv7.model.PdsAttach;
 import hideonbush3.springboot.semiprojectv7.service.PdsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +70,8 @@ public class PdsController {
     public String view(int pno, Model m){
         m.addAttribute("pds", pdssrv.readOnePds(pno));
         m.addAttribute("attach", pdssrv.readOnePdsAttach(pno));
+        m.addAttribute("rplist", pdssrv.readPdsReply(pno));
+
         return "pds/view";
     }
 
@@ -89,4 +91,12 @@ public class PdsController {
 
         return ResponseEntity.ok().headers(header).body(resource);
     }
+
+//    @PostMapping("/write/reply")
+//    public String writeReply(HttpSession sess, PdsReply pr){
+//        pr.setUserid(sess.getId());
+//        Long pno = pr.getPno();
+//
+//        return "redirect:/view?pno=" + pno;
+//    }
 }

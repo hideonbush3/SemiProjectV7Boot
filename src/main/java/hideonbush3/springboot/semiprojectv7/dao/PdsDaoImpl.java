@@ -2,8 +2,10 @@ package hideonbush3.springboot.semiprojectv7.dao;
 
 import hideonbush3.springboot.semiprojectv7.model.Pds;
 import hideonbush3.springboot.semiprojectv7.model.PdsAttach;
+import hideonbush3.springboot.semiprojectv7.model.PdsReply;
 import hideonbush3.springboot.semiprojectv7.repository.PdsaRepository;
 import hideonbush3.springboot.semiprojectv7.repository.PdsRepository;
+import hideonbush3.springboot.semiprojectv7.repository.PdsReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,9 @@ public class PdsDaoImpl implements PdsDao{
 
     @Autowired
     private PdsaRepository pdsaRepository;
+
+    @Autowired
+    private PdsReplyRepository replyRepository;
     @Override
     public int insertPds(Pds pds) {
         // 제목, 작성자, 본문을 pds 테이블에 저장한 뒤
@@ -66,6 +71,11 @@ public class PdsDaoImpl implements PdsDao{
     @Override
     public List<String> selectFtype(){
         return pdsaRepository.findByFtypes();
+    }
+
+    @Override
+    public List<PdsReply> selectPdsReply(int pno){
+        return replyRepository.findByPnoOrderByRefnoAscRegdateAsc((long)pno);
     }
 
 }

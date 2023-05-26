@@ -2,6 +2,7 @@ package hideonbush3.springboot.semiprojectv7.dao;
 
 import hideonbush3.springboot.semiprojectv7.model.Pds;
 import hideonbush3.springboot.semiprojectv7.model.PdsAttach;
+import hideonbush3.springboot.semiprojectv7.model.PdsReply;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,6 @@ public interface PdsDao {
     void downfile(int pno);
 
     List<String> selectFtype();
+
+    List<PdsReply> selectPdsReply(int pno);
 }

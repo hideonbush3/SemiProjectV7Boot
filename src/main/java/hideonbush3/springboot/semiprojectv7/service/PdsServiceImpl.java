@@ -3,6 +3,7 @@ package hideonbush3.springboot.semiprojectv7.service;
 import hideonbush3.springboot.semiprojectv7.dao.PdsDao;
 import hideonbush3.springboot.semiprojectv7.model.Pds;
 import hideonbush3.springboot.semiprojectv7.model.PdsAttach;
+import hideonbush3.springboot.semiprojectv7.model.PdsReply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -78,5 +79,10 @@ public class PdsServiceImpl implements PdsService{
     @Override
     public List<String> readFtype(){
         return pdsdao.selectFtype();
+    }
+
+    @Override
+    public List<PdsReply> readPdsReply(int pno){
+        return pdsdao.selectPdsReply(pno);
     }
 }

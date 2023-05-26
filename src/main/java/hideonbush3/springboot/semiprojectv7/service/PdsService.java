@@ -2,6 +2,7 @@ package hideonbush3.springboot.semiprojectv7.service;
 
 import hideonbush3.springboot.semiprojectv7.model.Pds;
 import hideonbush3.springboot.semiprojectv7.model.PdsAttach;
+import hideonbush3.springboot.semiprojectv7.model.PdsReply;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,4 +27,6 @@ public interface PdsService {
     void downfile(int pno);
 
     List<String> readFtype();
+
+    List<PdsReply> readPdsReply(int pno);
 }

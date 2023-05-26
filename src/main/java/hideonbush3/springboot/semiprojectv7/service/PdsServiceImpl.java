@@ -92,4 +92,12 @@ public class PdsServiceImpl implements PdsService{
         if(pdsdao.insertPdsReply(reply)) result = true;
         return result;
     }
+
+    @Override
+    public boolean newRreply(PdsReply reply){
+        boolean result = false;
+
+        if(pdsdao.insertPdsRreply(reply) > 0) result = true;
+        return result;
+    }
 }

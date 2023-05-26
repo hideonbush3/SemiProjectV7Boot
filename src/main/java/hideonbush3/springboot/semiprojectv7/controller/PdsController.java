@@ -1,6 +1,7 @@
 package hideonbush3.springboot.semiprojectv7.controller;
 
 import hideonbush3.springboot.semiprojectv7.model.Pds;
+import hideonbush3.springboot.semiprojectv7.model.PdsReply;
 import hideonbush3.springboot.semiprojectv7.service.PdsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -92,11 +93,13 @@ public class PdsController {
         return ResponseEntity.ok().headers(header).body(resource);
     }
 
-//    @PostMapping("/write/reply")
-//    public String writeReply(HttpSession sess, PdsReply pr){
-//        pr.setUserid(sess.getId());
-//        Long pno = pr.getPno();
-//
-//        return "redirect:/view?pno=" + pno;
-//    }
+    @PostMapping("/replyok")
+    public String writeReply(PdsReply pdsReply){
+        String viewPage = "error";
+
+        if(pdssrv.newReply(pdsReply)) {
+            viewPage = "redirect:/pds/view?pno=" + pdsReply.getPno();
+        }
+        return viewPage;
+    }
 }

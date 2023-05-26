@@ -25,7 +25,7 @@ public class PdsDaoImpl implements PdsDao{
     private PdsaRepository pdsaRepository;
 
     @Autowired
-    private PdsReplyRepository replyRepository;
+    private PdsReplyRepository pdsReplyRepository;
     @Override
     public int insertPds(Pds pds) {
         // 제목, 작성자, 본문을 pds 테이블에 저장한 뒤
@@ -75,7 +75,16 @@ public class PdsDaoImpl implements PdsDao{
 
     @Override
     public List<PdsReply> selectPdsReply(int pno){
-        return replyRepository.findByPnoOrderByRefnoAscRegdateAsc((long)pno);
+        return pdsReplyRepository.findByPnoOrderByRefnoAscRegdateAsc((long)pno);
+    }
+
+    @Override
+    public boolean insertPdsReply(PdsReply reply){
+        boolean result = false;
+        PdsReply p = pdsReplyRepository.save(reply);
+        pdsReplyRepository.updateRefno(p.getRpno());
+        if(p.getRpno() > 0) result = true;
+        return result;
     }
 
 }

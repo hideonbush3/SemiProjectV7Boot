@@ -37,7 +37,7 @@
                         <input type="text" id="title" name="title"
                                class="form-control border-danger">
                         <span th:if="${#fields.hasErrors('title')}"
-                              th:errors="*{title}" class="text-warning"></span>   <!-- board 클래스의 title 멤버변수에 오류가 있다면 -->
+                              th:errors="*{title}" class="text-warning"></span>   <!-- pds 클래스의 title 멤버변수에 오류가 있다면 -->
                         <!-- Entity 의 해당 멤버변수의 @NotBlank 어노테이션의
                         message 속성에 지정해둔 값을 출력 -->
                     </div>

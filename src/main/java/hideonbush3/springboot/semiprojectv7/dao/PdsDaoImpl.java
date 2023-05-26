@@ -80,11 +80,22 @@ public class PdsDaoImpl implements PdsDao{
 
     @Override
     public boolean insertPdsReply(PdsReply reply){
+        // 댓글 저장하는 시점에는 없던 댓글번호(rpno)를 (이 시점에 refno의 값은 null로 저장됨)
+        // refno에도 대입하기 위해 update 문을 한번 더 실행
         boolean result = false;
         PdsReply p = pdsReplyRepository.save(reply);
         pdsReplyRepository.updateRefno(p.getRpno());
         if(p.getRpno() > 0) result = true;
         return result;
+    }
+
+    @Override
+    public int insertPdsRreply(PdsReply reply){
+        // 대댓글 저장시 이미 링크로 전달받은 댓글번호가
+        // refno에 대입되어 있음 - 댓글 저장과는 달리 한번에 처리
+        long rpno = pdsReplyRepository.save(reply).getRpno();
+
+        return (int) rpno;
     }
 
 }

@@ -94,12 +94,19 @@ public class PdsController {
     }
 
     @PostMapping("/replyok")
-    public String writeReply(PdsReply pdsReply){
+    public String replyok(PdsReply pdsReply){
         String viewPage = "error";
 
         if(pdssrv.newReply(pdsReply)) {
             viewPage = "redirect:/pds/view?pno=" + pdsReply.getPno();
         }
+        return viewPage;
+    }
+
+    @PostMapping("/rreplyok")
+    public String rreplyok(PdsReply reply){
+        String viewPage = "error";
+        if(pdssrv.newRreply(reply)) viewPage = "redirect:/pds/view/?pno=" + reply.getPno();
         return viewPage;
     }
 }

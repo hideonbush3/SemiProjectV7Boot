@@ -1,5 +1,6 @@
 package hideonbush3.springboot.semiprojectv7.controller;
 
+import hideonbush3.springboot.semiprojectv7.model.Gallery;
 import hideonbush3.springboot.semiprojectv7.model.Pds;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,8 +23,7 @@ public class GalleryController {
     }
 
     @GetMapping("/write")   // 입력폼
-    public String write(Model m){
-        m.addAttribute("gallery", new Gallery());
+    public String write(Gallery gallery, List<MultipartFile> attachs){
         return "gallery/write";
     }
 

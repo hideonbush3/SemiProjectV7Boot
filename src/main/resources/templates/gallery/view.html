@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultra.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}">
+
+<th:block layout:fragment="content">
+    <div id="main">
+        <div class="mt-5">
+            <i class="fa-solid fa-cloud fa-2xl"> 갤러리 </i>
+            <hr>
+        </div>
+
+        <div class="row mt-5">
+            <div class="row offset-2 col-4">
+                <button type="button" class="btn btn-light col-4" id="prevbtn">
+                    <i class="fa fa-chevron-left"> </i> 이전게시물
+                </button>&nbsp;
+                <button type="button" class="btn btn-light col-4" id="nextbtn">
+                    <i class="fa fa-chevron-right"> </i> 다음게시물
+                </button>
+            </div>
+            <div class="col-4 text-end">
+                <th:block th:if="${session.UID ne null}">
+                    <button type="button" class="btn btn-success" id="newbtn">
+                        <i class="fa fa-plus-circle"> </i> 새글쓰기
+                    </button>
+                </th:block>
+            </div>
+        </div>
+
+        <div class="row mt-2 offset-2 col-8">
+            <table>
+                <tr>
+                    <th class="vtit" colspan="2" th:text="${pds.title}">&nbsp;</th>
+                </tr>
+
+                <tr class="vinfo">
+                    <td class="text-start" th:text="${pds.userid}">&nbsp;</td>
+                    <td class="text-end" th:text="|${pds.regdate} / ${pds.thumbs} / ${pds.views}|">2023-05-05 12:12:12 / 0 / 0</td>
+                </tr>
+
+                <tr><td class="vcont" colspan="2" th:text="${pds.content}">
+                    &nbsp;
+                </td></tr>
+                <tr>
+                    <td class="vinfo" colspan="2">
+                        <img th:src="|/assets/img/ftype/${attach.ftype}.png|"
+                             width="30" height="30">
+                        <a th:href="|/pds/down?pno=${pds.pno}|"
+                           th:text="${attach.fname}">&nbsp;</a>
+                        <span th:text="|(${attach.fsize} KB/${attach.fdown}회 다운로드)|">&nbsp;</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row mt-2">
+            <div class="row offset-2 col-4">
+                <th:block th:if="${session.UID ne null}">
+                    <button type="button" class="btn btn-warning col-4" id="updbtn">
+                        <i class="fa fa-pencil"> </i> 수정하기
+                    </button>&nbsp;
+                    <button type="button" class="btn btn-danger col-4" id="rmvbtn">
+                        <i class="fa fa-trash-o"> </i> 삭제하기
+                    </button>
+                </th:block>
+            </div>
+            <div class="col-4 text-end">
+                <button type="button" class="btn btn-light" id="listbtn">
+                    <i class="fa fa-list"> </i> 목록으로
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <i class="fa-solid fa-comment fa-2xl"> 댓글 </i>
+        </div>
+
+        <div class="row mt-5">
+            <div class="offset-2 col-8">
+                <table class="table" style="border-bottom: 3px solid black;
+                                            border-top: 3px solid black">
+                    <tr th:each="rp : ${rplist}">
+                        <th:block th:if="${rp.rpno eq rp.refno}">
+                            <!-- 댓글시작 -->
+                            <td style="width: 25%;"><h4 th:text="${rp.userid}">작성자</h4></td>
+                            <td>
+                                <div style="background-color: yellow; padding: 5px">[[${rp.regdate}]]
+                                    <span style="float:right;"><a th:href="|javascript:showComment(${rp.rpno})|">[추가]</a> / [수정] / [삭제]</span>
+                                </div>
+                                <p style="padding: 5px 0" th:text="${rp.reply}">안녕하세요 댓글입니다</p>
+                            </td>
+                        </th:block>
+                        <th:block th:if="${rp.rpno ne rp.refno}">
+                            <!-- 대댓글시작 -->
+                            <td style="width: 25%;"></td>
+                            <td>
+                                <div style="background-color: greenyellow; padding: 5px">
+                                    <span th:text="${rp.userid}"></span>
+                                    <span style="float:right;" th:text="|${rp.regdate} [수정] / [삭제]|">2023-05-26 10:50:12</span>
+                                </div>
+                                <p style="padding: 5px 0" th:text="${rp.reply}">안녕히가세요</p>
+                            </td>
+                        </th:block>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="offset-2 col-8">
+                <form name="rpfrm" id="rpfrm" class="card card-body bg-light">
+                    <th:block th:if="${session.isEmpty()}">
+                        <div class="row">
+                            <label class="col-3 form-label">로그인하세요</label>
+                            <div class="col-9">
+                                <textarea rows="7" class="form-control" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="button" class="btn btn-outline-dark" disabled><i class="fa fa-commenting"></i>댓글등록</button>
+                        </div>
+                    </th:block>
+
+                    <th:block th:if="${!(session.isEmpty())}">
+                        <div class="row">
+                            <label class="col-3 form-label" th:text="${session.UID}"></label>
+                            <div class="col-9">
+                        <textarea id="reply" name="reply"
+                                  rows="7" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="button" class="btn btn-outline-dark" id="rpnewbtn"><i class="fa fa-commenting"></i>댓글등록</button>
+                        </div>
+                    </th:block>
+                    <input type="hidden" name="pno" id="pno" th:value="${pds.pno}">
+                    <input type="hidden" name="userid" id="userid" th:value="${session.UID}">
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal hide" id="cmtModal" role="dialog"
+         data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title"><i class="fa-solid fa-message"></i>대댓글 쓰기</h3>
+                    <button type="button" data-bs-dismiss="modal"
+                            class="btn btn-light">닫기</button>
+                </div>
+                <div class="modal-body">
+                    <form name="cmtfrm" id="cmtfrm"
+                          method="post">
+                            <textarea name="reply" id="comment" rows="7"
+                                      cols="60"></textarea>
+                        <input type="hidden" name="userid" th:value="${session.UID}">
+                        <input type="hidden" name="pno" th:value="${pds.pno}">
+                        <input type="hidden" name="refno" id="refno">
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" id="cmtbtn"
+                            class="btn btn-danger">대댓글 작성</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- 대댓글 쓰기 -->
+
+    <script src="/assets/js/gallery.js"></script>
+</th:block>

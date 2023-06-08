@@ -101,7 +101,7 @@ public class GalleryUtils {
                     (img.getWidth() - imgW) / 2,    // crop할 좌표
                     (img.getHeight() - imgH) / 2,
             imgW, imgH, null);
-            // 잘라낸 이미지를 230x200 크기로 재조정
+            // 잘라낸 이미지를 330 x 350 크기로 재조정
             BufferedImage resizeImg = Scalr.resize(
                     scaleImg, 330, 350, null
             );

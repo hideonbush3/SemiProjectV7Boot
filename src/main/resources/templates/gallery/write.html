@@ -36,8 +36,8 @@
                     <div class="col-6">
                         <input type="text" id="title" name="title"
                                class="form-control border-danger">
-                        <span th:if="${#fields.hasErrors('title')}"
-                              th:errors="*{title}" class="text-warning"></span>   <!-- pds 클래스의 title 멤버변수에 오류가 있다면 -->
+<!--                        <span th:if="${#fields.hasErrors('title')}"-->
+<!--                              th:errors="*{title}" class="text-warning"></span>   &lt;!&ndash; pds 클래스의 title 멤버변수에 오류가 있다면 &ndash;&gt;-->
                         <!-- Entity 의 해당 멤버변수의 @NotBlank 어노테이션의
                         message 속성에 지정해둔 값을 출력 -->
                     </div>
@@ -48,8 +48,8 @@
                     <div class="col-6">
                         <input type="text" id="userid" name="userid"
                                class="form-control border-danger bg-light" readonly th:value="${session.UID}">
-                        <span th:if="${#fields.hasErrors('userid')}"
-                              th:errors="*{userid}" class="text-warning"></span>
+<!--                        <span th:if="${#fields.hasErrors('userid')}"-->
+<!--                              th:errors="*{userid}" class="text-warning"></span>-->
                     </div>
                 </div>
 
@@ -60,14 +60,14 @@
                               class="form-control border-danger" rows="15"></textarea>
                     </div>
                     <div class="offset-3 col-6">
-                        <span th:if="${#fields.hasErrors('content')}"
-                              th:errors="*{content}" class="text-warning"></span>
+<!--                        <span th:if="${#fields.hasErrors('content')}"-->
+<!--                              th:errors="*{content}" class="text-warning"></span>-->
                     </div>
                 </div>
 
                 <div class="row mt-2">
                     <label class="col-form-label text-danger text-end col-3"
-                           for="attachs" >다줌첨부 이미지파일</label>
+                           for="attachs" >다중첨부 이미지파일</label>
                     <div class="col-6">
                         <input type="file" id="attachs" name="attachs" multiple="multiple"
                                class="form-control border-danger bg-light">
